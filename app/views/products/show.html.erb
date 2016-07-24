@@ -18,3 +18,4 @@ p    {color: red;}
           <h5 align="center"><%= @product.description %></h5>
 
 <h2><%= link_to "Back to all products", "/products" %></h2>
+<%= link_to "Delete", "products/#{@product.id}", method: "delete" %>

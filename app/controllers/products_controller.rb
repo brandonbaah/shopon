@@ -11,30 +11,38 @@ class ProductsController < ApplicationController
   def new
     render "new.html.erb"
   end
-  
-  def dumbbells
+
+  def create
+    @product = Product.new(name: params[:name], price: params[:name], image: params[:image], description: params[:description])
+    @product.save
+    render "create.html.erb"
   end
 
-  def telescope
+  def edit
+    @product = Product.find_by(id: params[:id])
+    render "edit.html.erb"
   end
 
-  def pullup_bar
-  end
-
-  def iphone
-  end
-
-  def sofa
-  end
-
-  def new_product
-    Product.create(
+  def update
+    @product = Product.find_by(id: params[:id])
+    @product.update(
     name: params[:name],
     price: params[:price],
     image: params[:image],
      description: params[:description]
      )
-     render "new_product.html.erb"
+    redirect "update.html.erb"
+  end
+
+  def destroy
+    @product = Product.find_by(id: params[:id])
+    @product.destroy(
+    name: params[:name],
+    price: params[:price],
+    image: params[:image],
+    description: params[:description]
+    )
+    render "destroy.html.erb"
   end
 
 end
