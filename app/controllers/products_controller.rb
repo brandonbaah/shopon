@@ -15,7 +15,10 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(name: params[:name], price: params[:name], image: params[:image], description: params[:description])
     @product.save
-    render "create.html.erb"
+
+    flash[:success] = "#{@product.name} was successfully created."
+
+    redirect_to "products/#{@product.id}"
   end
 
   def edit
@@ -31,7 +34,8 @@ class ProductsController < ApplicationController
     image: params[:image],
      description: params[:description]
      )
-    redirect "update.html.erb"
+     flash[:success] = "#{@product.name} was successfully updated."
+    redirect_to "/products/#{@product.id}"
   end
 
   def destroy
@@ -42,7 +46,10 @@ class ProductsController < ApplicationController
     image: params[:image],
     description: params[:description]
     )
-    render "destroy.html.erb"
+
+    flashh[:success] = "#{@product.name} was successfully deleted."
+
+    redirect_to "products"
   end
 
 end

@@ -10,12 +10,13 @@ p    {color: red;}
 </head>
 <body>
 
-<h1 align="center">This is your chosen item</h1>
+<h1 align="center">This is the <%= @product.name %></h1>
 
           <h2 align="center"><%= @product.name %></h2>
           <h4 align="center"><a href="@product"><%= @product.price %></h4>
           <h2 align="center"> <img src="<%= @product.image %>" alt"" height="300" width="300"></h2>
           <h5 align="center"><%= @product.description %></h5>
 
-<h2><%= link_to "Back to all products", "/products" %></h2>
-<%= link_to "Delete", "products/#{@product.id}", method: "delete" %>
+<div><%= link_to "Back to all products", "/products" %></div>
+<div><%= link_to "Delete", "/products/#{@product.id}", method: "delete" %></div>
+<div><%= link_to "Edit", "/products/#{@product.id}/edit" %></div>

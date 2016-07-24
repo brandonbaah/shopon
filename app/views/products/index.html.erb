@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {background-color: steelblue;}
-h1   {color: white;}
-p    {color: red;}
-</style>
-</head>
-<body>
-
 <h1 align="center">Here are all products!</h1>
+<h4><%= link_to "Create a new recipe", "/recipes/new" %></h4>
 
-<%@products.each do |product| %>
-          <h2 align="center"><%= link_to product.name, "/products/#{product.id}" %></h2>
-          <h4 align="center"><%= product.price %></h4>
-          <h2 align="center"><img src="<%= product.image %>" alt"" height="300" width="300"></h2>
-          <h5 align="center"><%= product.description %></h5>
-          <% end %>
+<div class="row product-index">
+  <%@products.each do |product| %>
+    <a href="/products/<%= product.id%>">
+      <div class="col-md-4 well">
+        <h2 align="center"><%= product.name %></h2>
+        <h4 align="center"><%= product.price %></h4>
+        <h2 align="center"><img src="<%= product.image %>" alt"" height="300" width="300"></h2>
+        <h5 align="center"><%= product.description %></h5>
+      </div>
+    </a>
+  <% end %>
+</div>
