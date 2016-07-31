@@ -11,9 +11,13 @@ p    {color: red;}
 <body>
 
 <h1 align="center">This is the <%= @product.name %></h1>
+<h2><%= @product.supplier.name %></h2>
+<h2 color: red;><%= @product.sales_message %></h2>
+<h2>Tax: <%=  @product.tax %></h2>
+<h2>For a Total: <%= @product.total %></h2>
 
           <h2 align="center"><%= @product.name %></h2>
-          <h4 align="center"><a href="@product"><%= @product.price %></h4>
+          <h4 align="center"><a href="@product"><%= "$" + @product.price %></h4>
           <h2 align="center"> <img src="<%= @product.image %>" alt"" height="300" width="300"></h2>
           <h5 align="center"><%= @product.description %></h5>
 

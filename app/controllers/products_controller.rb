@@ -1,8 +1,16 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.all
+    if params[:sort]=="price" && params[:order]=="asc"
+      @products = Product.order(params[:sort] => params[:order])
+    end
+    if params[:sort]=="price" && params[:order]=="desc"
+      @products = Product.order(params[:sort] => params[:order])
+    end
+    if params[:discount] == "true"
+      @products= Product.where("price > ?", 100)
+    end
   end
-
   def show
     @product = Product.find_by(id: params[:id])
     render "show.html.erb"
@@ -51,5 +59,4 @@ class ProductsController < ApplicationController
 
     redirect_to "products"
   end
-
 end
