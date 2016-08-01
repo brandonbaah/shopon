@@ -54,9 +54,7 @@ class ProductsController < ApplicationController
     image: params[:image],
     description: params[:description]
     )
-
-    flashh[:success] = "#{@product.name} was successfully deleted."
-
+    flash[:success] = "#{@product.name} was successfully deleted."
     redirect_to "products"
   end
 end

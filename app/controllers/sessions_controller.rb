@@ -3,6 +3,8 @@ class SessionsController < ApplicationController
     render 'new.html.erb'
   end
 
+  
+
 
   def create
     user = User.find_by(email: params[:email])

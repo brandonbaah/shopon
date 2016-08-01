@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
   belongs_to :supplier
-  belongs_to :image
+  has_many :images
+  has_many :orders
 
   def sales_message
     if price.to_i < 2

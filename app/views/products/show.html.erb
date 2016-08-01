@@ -17,9 +17,22 @@ p    {color: red;}
 <h2>For a Total: <%= @product.total %></h2>
 
           <h2 align="center"><%= @product.name %></h2>
-          <h4 align="center"><a href="@product"><%= "$" + @product.price %></h4>
+          <h4 align="center"><a href="@product"><%= @product.price %></a></h4>
           <h2 align="center"> <img src="<%= @product.image %>" alt"" height="300" width="300"></h2>
           <h5 align="center"><%= @product.description %></h5>
+
+          <h3>Checkout</h3>
+          <%= form_tag '/orders', method: :post do  %>
+            <div>
+              <%= label_tag :quantity %>
+              <%= text_field_tag :quantity %>
+            </div>
+            <% label_tag :product_id %>
+            <%= hidden_field_tag :product_id, @product.id %>
+            <div>
+            <%= submit_tag "Buy Now!" %>
+          </div>
+            <%end %>
 
 <div><%= link_to "Back to all products", "/products" %></div>
 <div><%= link_to "Delete", "/products/#{@product.id}", method: "delete" %></div>
