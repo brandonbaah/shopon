@@ -2,23 +2,37 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
+    @carted_products = CartedProduct.where(user_id: current_user.id, status: "purchased")
+    if @carted_products.status == "purchased"
+      flash[:warning] = "Sorry. There is currently no items in your cart."
+      redirect_to "/products"
+    end
     render 'show.html.erb'
   end
 
   def create
+    @carted_products = CartedProduct.where(user_id: current_user.id, status: "carted")
     @order = Order.new(
-    quantity: params[:quantity],
-    product_id: params[:product_id],
     user_id: current_user.id,
-    subtotal: params[:subtotal],
-    tax: params[:tax],
-    total: params[:total]
     )
-    order.subtotal = params[:quantity] * order.product.price
-    order.tax = 0.09 * order.subtotal
-    order.total = order.subtotal + order.tax
+    # @order.tax = 0.09 * @order.subtotal
+    # @order.total = @order.subtotal + @order.tax
+
     @order.save
+    subtotal = 0
+    @carted_products.each do |carted_product|
+      carted_product.update(status: "purchased")
+      carted_product.update(order_id: @order.id)
+      subtotal = carted_product.quantity * carted_product.product.price
+    end
+
+    @order.subtotal = subtotal
+    @order.tax = 0.09 * subtotal
+    @order.total = @order.subtotal + @order.tax
+    @order.save
+
     flash[:success] = "You successfully purchased your desired items."
+
     redirect_to "/orders/#{@order.id}"
   end
 

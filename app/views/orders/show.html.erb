@@ -1,7 +1,10 @@
 <h1>Order Confirmation!</h1>
 
-<h2>Order Quantity: <%= @order.quantity %></h2>
+<%@carted_products.each do |carted_product| %>
+<h2>Item: <%= carted_product.product.name  %></h2>
+<h2>Quantity: <%= carted_product.quantity %></h2>
+<%end %>
+
 <h2>Subtotal:<%= @order.subtotal %></h2>
 <h2>Tax:<%= @order.tax %></h2>
 <h2>Total:<%= @order.total %></h2>
-<img src="<%= @order.product.images.first.link %>"

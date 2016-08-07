@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {background-color: steelblue;}
-h1   {color: blue;}
-h2   {color: orange}
-p    {color: red;}
-</style>
-</head>
-<body>
+
 
 <h1 align="center">This is the <%= @product.name %></h1>
 <h2><%= @product.supplier.name %></h2>
@@ -22,7 +12,7 @@ p    {color: red;}
           <h5 align="center"><%= @product.description %></h5>
 
           <h3>Checkout</h3>
-          <%= form_tag '/orders', method: :post do  %>
+          <%= form_tag '/checkout', method: :post do  %>
             <div>
               <%= label_tag :quantity %>
               <%= text_field_tag :quantity %>
@@ -30,10 +20,14 @@ p    {color: red;}
             <% label_tag :product_id %>
             <%= hidden_field_tag :product_id, @product.id %>
             <div>
-            <%= submit_tag "Buy Now!" %>
+            <%= submit_tag "Add to Cart" %>
           </div>
             <%end %>
 
 <div><%= link_to "Back to all products", "/products" %></div>
 <div><%= link_to "Delete", "/products/#{@product.id}", method: "delete" %></div>
 <div><%= link_to "Edit", "/products/#{@product.id}/edit" %></div>
+<h4> Categories:</h4>
+<% @product.categories.each do |category| %>
+<%= category.name %>
+<% end %>
