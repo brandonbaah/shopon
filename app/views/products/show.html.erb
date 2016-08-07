@@ -11,8 +11,8 @@
           <h2 align="center"> <img src="<%= @product.image %>" alt"" height="300" width="300"></h2>
           <h5 align="center"><%= @product.description %></h5>
 
-          <h3>Checkout</h3>
-          <%= form_tag '/checkout', method: :post do  %>
+          <h3 align="center">Checkout</h3>
+          <h4 align="center"><%= form_tag '/checkout', method: :post do  %>
             <div>
               <%= label_tag :quantity %>
               <%= text_field_tag :quantity %>
@@ -20,14 +20,15 @@
             <% label_tag :product_id %>
             <%= hidden_field_tag :product_id, @product.id %>
             <div>
-            <%= submit_tag "Add to Cart" %>
+            <h3 align="center"><%= submit_tag "Add to Cart", class: "btn btn-success" %></h3>
           </div>
+        </h4>
             <%end %>
 
-<div><%= link_to "Back to all products", "/products" %></div>
-<div><%= link_to "Delete", "/products/#{@product.id}", method: "delete" %></div>
-<div><%= link_to "Edit", "/products/#{@product.id}/edit" %></div>
-<h4> Categories:</h4>
+<h3 align="center"><%= link_to "Back to all products", "/products", class: "btn btn-warning" %></h3>
+<h3 align="center"><%= link_to "Delete", "/products/#{@product.id}", method: "delete", class: "btn btn-danger" %></h3>
+<h3 align="center"><%= link_to "Edit", "/products/#{@product.id}/edit", class: "btn btn-primary" %></h3>
+<h2 align="center"> Categories:</h2>
 <% @product.categories.each do |category| %>
-<%= category.name %>
+<h4 align="center"><%= category.name %></h4>
 <% end %>

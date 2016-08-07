@@ -3,9 +3,10 @@ Shop Cart
 <% @carted_products.each do |carted_product| %>
 <h1><%= carted_product.product.name %></h1>
 <h1><%= carted_product.quantity %></h1>
-<div><%= link_to "Delete", "/checkout/#{carted_product.id}", method: "delete" %></div>
+<div><%= link_to "Delete", "/checkout/#{carted_product.id}", method: "Remove From Your Cart", class: "btn btn-danger" %></div>
 <% end %>
+<div>
 
   <%= form_tag '/orders', method: :post do  %>
-    <%= submit_tag "Buy Now" %>
+    <%= submit_tag "Buy Now", class: "btn btn-primary" %>
   <% end %>

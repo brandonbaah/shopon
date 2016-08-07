@@ -32,6 +32,7 @@ end
   def destroy
     @carted_product = CartedProduct.find_by(id: params[:id])
     @carted_product.update(status: "removed")
+      flash[:warning] = "You successfully removed an item from your cart."
     redirect_to '/checkout'
     end
   end
