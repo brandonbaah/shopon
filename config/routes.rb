@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post 'users' => 'users#create'
 
   get '/login' => 'sessions#new'
-  post '/login' => 'sesssion#create'
+  post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
 
   get '/checkout' => 'carted_products#index'

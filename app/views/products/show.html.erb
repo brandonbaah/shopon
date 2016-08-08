@@ -12,6 +12,7 @@
           <h5 align="center"><%= @product.description %></h5>
 
           <h3 align="center">Checkout</h3>
+          <% if current_user && current_user.admin %>
           <h4 align="center"><%= form_tag '/checkout', method: :post do  %>
             <div>
               <%= label_tag :quantity %>
@@ -22,12 +23,15 @@
             <div>
             <h3 align="center"><%= submit_tag "Add to Cart", class: "btn btn-success" %></h3>
           </div>
+          <% end %>
         </h4>
             <%end %>
-
 <h3 align="center"><%= link_to "Back to all products", "/products", class: "btn btn-warning" %></h3>
+<% if current_user && current_user.admin %>
 <h3 align="center"><%= link_to "Delete", "/products/#{@product.id}", method: "delete", class: "btn btn-danger" %></h3>
 <h3 align="center"><%= link_to "Edit", "/products/#{@product.id}/edit", class: "btn btn-primary" %></h3>
+<% end %>
+
 <h2 align="center"> Categories:</h2>
 <% @product.categories.each do |category| %>
 <h4 align="center"><%= category.name %></h4>

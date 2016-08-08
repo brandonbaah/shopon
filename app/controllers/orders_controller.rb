@@ -1,9 +1,13 @@
 class OrdersController < ApplicationController
+  before_action: :authenticate_user
 
   def show
     @order = Order.find_by(id: params[:id])
+    if @order.user_id == current_user.id
     @carted_products = CartedProduct.where(user_id: current_user.id, status: "purchased")
     if @carted_products.status == "purchased"
+    else
+      redirect_to "/products"
       flash[:warning] = "Sorry. There is currently no items in your cart."
       redirect_to "/products"
     end

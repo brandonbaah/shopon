@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :authorize_admin!, except: [:index, :show, :search]
+
   def index
     @products = Product.all
     if params[:sort]=="price" && params[:order]=="asc"
@@ -15,21 +17,21 @@ class ProductsController < ApplicationController
       @products = category.products
     end
   end
+
   def show
     @product = Product.find_by(id: params[:id])
     render "show.html.erb"
   end
 
   def new
-    render "new.html.erb"
+      flash[:warning] = "You have to be an admin! Nice try, jerk"
+    redirect_to '/products'
   end
 
   def create
     @product = Product.new(name: params[:name], price: params[:name], image: params[:image], description: params[:description])
     @product.save
-
     flash[:success] = "#{@product.name} was successfully created."
-
     redirect_to "products/#{@product.id}"
   end
 
@@ -44,9 +46,9 @@ class ProductsController < ApplicationController
     name: params[:name],
     price: params[:price],
     image: params[:image],
-     description: params[:description]
-     )
-     flash[:success] = "#{@product.name} was successfully updated."
+    description: params[:description]
+    )
+    flash[:success] = "#{@product.name} was successfully updated."
     redirect_to "/products/#{@product.id}"
   end
 
@@ -61,4 +63,5 @@ class ProductsController < ApplicationController
     flash[:success] = "#{@product.name} was successfully deleted."
     redirect_to "products"
   end
+
 end
