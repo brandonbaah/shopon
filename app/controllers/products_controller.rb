@@ -24,15 +24,25 @@ class ProductsController < ApplicationController
   end
 
   def new
-      flash[:warning] = "You have to be an admin! Nice try, jerk"
-    redirect_to '/products'
+    product = Product.new
+    render "new.html.erb"
   end
 
   def create
-    @product = Product.new(name: params[:name], price: params[:name], image: params[:image], description: params[:description])
+    @product = Product.new(
+    name: params[:name],
+    price: params[:name],
+    image: params[:image],
+    description: params[:description]
+    )
     @product.save
-    flash[:success] = "#{@product.name} was successfully created."
-    redirect_to "products/#{@product.id}"
+      if @product.valid?
+        flash[:success] = "#{@product.name} was successfully created."
+        redirect_to "products/#{@product.id}"
+      else
+        flash[:danger] = "Product was invalid"
+        render "new.html.erb"
+      end
   end
 
   def edit
@@ -48,8 +58,13 @@ class ProductsController < ApplicationController
     image: params[:image],
     description: params[:description]
     )
+    if @product.valid?
     flash[:success] = "#{@product.name} was successfully updated."
     redirect_to "/products/#{@product.id}"
+    else
+      flash[:danger] = "#{@product.name} was not saved successfully."
+      render "edit.html.erb"
+    end
   end
 
   def destroy
@@ -61,7 +76,7 @@ class ProductsController < ApplicationController
     description: params[:description]
     )
     flash[:success] = "#{@product.name} was successfully deleted."
-    redirect_to "products"
+    redirect_to "/products"
   end
 
 end

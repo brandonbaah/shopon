@@ -7,6 +7,13 @@ class Product < ActiveRecord::Base
   has_many :carted_products
   has_many :users, through: :carted_products
 
+  validates :name, presence: true
+  validates :price, presence: true
+  validates :price, numericality: true
+  validates :description, presence: {maximum: 500}
+  validates :image, presence: true
+  validates :name, uniqueness: true
+
   def sales_message
     if price.to_i < 2
       return "Discount Item!"

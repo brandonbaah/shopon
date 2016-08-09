@@ -12,7 +12,7 @@
           <h5 align="center"><%= @product.description %></h5>
 
           <h3 align="center">Checkout</h3>
-          <% if current_user && current_user.admin %>
+          <% if current_user %>
           <h4 align="center"><%= form_tag '/checkout', method: :post do  %>
             <div>
               <%= label_tag :quantity %>
@@ -22,10 +22,14 @@
             <%= hidden_field_tag :product_id, @product.id %>
             <div>
             <h3 align="center"><%= submit_tag "Add to Cart", class: "btn btn-success" %></h3>
+
           </div>
           <% end %>
         </h4>
             <%end %>
+            <%if !current_user %>
+            <h3 align="center"><%= link_to "Sign In To Add To Cart", "/login", class: "btn btn-success" %></h3>
+            <% end %>
 <h3 align="center"><%= link_to "Back to all products", "/products", class: "btn btn-warning" %></h3>
 <% if current_user && current_user.admin %>
 <h3 align="center"><%= link_to "Delete", "/products/#{@product.id}", method: "delete", class: "btn btn-danger" %></h3>
