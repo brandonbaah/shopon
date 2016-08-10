@@ -24,6 +24,7 @@ end
     status: "carted"
     )
     @carted_product.save
+    session[:cart_count] += 1
     flash[:success] = "You successfully carted your desired items."
     redirect_to "/checkout/#{@carted_product.id}"
   end
@@ -32,7 +33,9 @@ end
   def destroy
     @carted_product = CartedProduct.find_by(id: params[:id])
     @carted_product.update(status: "removed")
-      flash[:warning] = "You successfully removed an item from your cart."
+    session[:user_id]
+    session[:cart_count] = nil
+    flash[:warning] = "You successfully removed an item from your cart."
     redirect_to '/checkout'
     end
   end
