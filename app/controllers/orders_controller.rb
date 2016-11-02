@@ -19,8 +19,6 @@ class OrdersController < ApplicationController
     @order = Order.new(
     user_id: current_user.id,
     )
-    # @order.tax = 0.09 * @order.subtotal
-    # @order.total = @order.subtotal + @order.tax
 
     @order.save
     subtotal = 0
