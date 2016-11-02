@@ -59,8 +59,8 @@ class ProductsController < ApplicationController
     description: params[:description]
     )
     if @product.valid?
-    flash[:success] = "#{@product.name} was successfully updated."
-    redirect_to "/products/#{@product.id}"
+      flash[:success] = "#{@product.name} was successfully updated."
+      redirect_to "/products/#{@product.id}"
     else
       flash[:danger] = "#{@product.name} was not saved successfully."
       render "edit.html.erb"
